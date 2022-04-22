@@ -1,8 +1,8 @@
 # Исходник задачи
 
-A large electronics store wants to get into the electronics recycling business and needs a new system to support it. Customers can send in their small personal electronic equipment (or use local kiosks at the mall) and possibly get money for their used equipment if it is in working condition.
+_A large electronics store wants to get into the electronics recycling business and needs a new system to support it. Customers can send in their small personal electronic equipment (or use local kiosks at the mall) and possibly get money for their used equipment if it is in working condition._
 
-Users: Hundreds, hopefully thousands to millions
+_Users: Hundreds, hopefully thousands to millions
 Requirements:
 Customers can get a quote for used personal electronic equipment (phones, cameras, etc.) either through the web or a kiosk at a mall.
 Customers will receive a box in the mail, send in their electronic, and if it is in good working order receive a check.
@@ -14,7 +14,7 @@ This is a highly competitive business and is a new line of business for us
 If we haven’t received a type of electronic equipment in a year we will remove it from our system
 We need to maintain a list of electronic equipment we are willing to accept as it changes often
 Each piece of equipment has it’s own assessment (inspection) rules
-We have the right to change the original quote to the customer if the product isn’t in the condition they said it was
+We have the right to change the original quote to the customer if the product isn’t in the condition they said it was_
 
 # Going Green
 
@@ -70,3 +70,69 @@ We have the right to change the original quote to the customer if the product is
 
 ## Контекстная диаграмма
 ![](Business-context.png)
+
+## Критические сценарии и критические характеристики
+
+### Критические сценарии
+
+* Регистрация новых клиентов сервиса;
+* Получение клиентом перечня принимаемой техники и базовых критериев ее оценивания;
+* Работа ведущего специалиста по оценке с перечнем Б/У электронных товаров;
+* Рассылка чеков-квитанций на выкуп согласованной техники клиенту;
+* Коррекная обработка очереди заявок на оценку в рамках каждого из оценщиков;
+* Отображение информации о статусе оценки Б/У техники в ЛК клиентов;
+
+
+### Критические характеристики
+
+* Доступность перечней возможной к выкупу Б/У техники и критериев ее оценки;
+* Доступность очереди заявок и ее равномерное распределение между оценщиками;
+* Отсутствие зависших заявок;
+* Оплата происходит только после согласования клиентом;
+* Сложность внесения изменений/расширения перечня Б/У товаров;
+* 95% квантелиь времени ответа сервисов для клиента не должно превышать 3с;
+* Стоимость разработки;
+
+## Архитектурное решение
+
+**Контекст**: <br/> Необходимо создание системы на базе существующей компании (большого магазина электроники) по заведению и сопровождению заявки продажи Б/У электронной техники магазину. <br/>
+У магазина электроники уже существует полноценный интернет магазин со всем стандартным функционалом. Бизнес нуждается в создании нового направления, покупка старой техники клиентов за денежное вознаграждение. <br/>
+
+К рассмотрению выдвинуты две альтернативы.
+
+**Альтернативы** <br/>
+
+* Альтернатива 1. Реализовать систему переработки (recycling) электроники в существующем онлайн-магазине;
+* Альтернатива 2. Реализовать всю систему полностью с нуля, используя самый свежий стек технологий.
+
+**Оценка и сравнительный анализ**
+
+На данный момент количество пользователей онлайн-магазина относительно велико > 100000. В процессе эксплуатации онлайн-магазина у пользователей не возникает частых обращений касательно производительности системы, у команды разработки отсутствует неопределенность в действующих бизнес-процессах системы. Онлайн-магазин представляет собой модульный монолит.<br/>
+Б**о**льшая часть необходимого функционала онлайн магазина (регистрация, проверка персональных данных, интеграции с SMTP сервером рассылки писем, интеграция с онлайн-банкингом для оплаты) уже реализовано внутри онлайн-магазина. Его модульность позволяет переиспользовать этот функционал без дублирования. Целесообразным решением в данной ситуации будет создание новых модулей в текущем монолите и их интеграция с готовым функционалом. Более того, нашим текущим клиентам не нужно будет регистрироваться в новой системе, т.к. все необходимое для работы с новом функционалом у нас уже есть. В случае, если мы когда-то захотим вынести наши модули в отдельную систему, в силу соблюдения модульности монолита мы без проблем сможем вынести решение в микросервисную архитектуру.
+В результате сравнительного анализа принято решение ипользовать в качестве базового решения Альтернативу 1.
+
+
+
+
+# ADR
+
+# Title
+Создание системы recycling электронной техники
+
+## Status
+
+```diff
+! Proposed
+```
+
+## Context
+
+What is the issue that we're seeing that is motivating this decision or change?
+
+## Decision
+
+What is the change that we're proposing and/or doing?
+
+## Consequences
+
+What becomes easier or more difficult to do because of this change?
