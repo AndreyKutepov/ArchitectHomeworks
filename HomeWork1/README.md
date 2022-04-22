@@ -122,7 +122,7 @@ We have the right to change the original quote to the customer if the product is
 ## Status
 
 ```diff
-! Proposed
+Proposed
 ```
 
 ## Context
